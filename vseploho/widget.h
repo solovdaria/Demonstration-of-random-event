@@ -19,6 +19,12 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
 QT_END_NAMESPACE
 
+/*
+\brief Class of ball
+
+
+
+*/
 class FallingCircle:public QGraphicsEllipseItem
 {
 public:
@@ -44,6 +50,11 @@ public:
     Box();
 };
 
+/*
+\brief Class of widget
+
+
+*/
 class Widget : public QWidget
 {
     Q_OBJECT

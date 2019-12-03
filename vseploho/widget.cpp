@@ -10,6 +10,14 @@
 
 #define CIRCLE_SIZE 70
 
+/*
+ \brief Widget constructor
+
+ Generate scene, frames, timers
+ \param animationTimer Timer connected to animation
+ \param generatorTimer Timer connected to balls generation
+ \param frame, frame1, frame2, frame3, frame4, frame5 Text frames
+ */
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Widget)
@@ -48,6 +56,12 @@ Widget::~Widget()
     delete ui;
 }
 
+/*
+ \brief Generation
+
+Generation of all elements after adding quantity of balls
+\param counter
+ */
 void Widget::onGenerate()
 {
     int counter=0;
@@ -97,9 +111,7 @@ void Widget::onGenerate()
         }
         qDebug()<<"";
 
-
-
-        QString text1;QString text2;QString text3;QString text4;QString text5;QString text6;
+      QString text1;QString text2;QString text3;QString text4;QString text5;QString text6;
         QString text="GOT BALLS:";
         QFont newfont("Courier", 12, QFont::Bold, true);
         frame1->setFont(newfont); frame2->setFont(newfont); frame3->setFont(newfont); frame4->setFont(newfont);
@@ -112,12 +124,7 @@ void Widget::onGenerate()
 frame1->setText(text1);frame2->setText(text2);frame3->setText(text3);frame4->setText(text4);frame5->setText(text5);
        scene->addItem(frame);frame->setText(text);
 
-
-
-
-
         arr[0]->setRect(275, 200, CIRCLE_SIZE, CIRCLE_SIZE);
-//        animationTimer->stop();
         arr[0]->setYspeed(0);
         arr[0]->setPos(0, 0);
         if(current)
@@ -132,7 +139,11 @@ frame1->setText(text1);frame2->setText(text2);frame3->setText(text3);frame4->set
     scene->addItem(proxy);
 }
 
+/*
+\brief Constructor of balls
 
+Setting position, colour of ball(circle)
+ */
 FallingCircle::FallingCircle(int xspread, int &N): QGraphicsEllipseItem(nullptr), N(N)
 {
     colour = color[rand()%5];
@@ -143,6 +154,9 @@ FallingCircle::FallingCircle(int xspread, int &N): QGraphicsEllipseItem(nullptr)
     setPos(rand()%(xspread-CIRCLE_SIZE-300), 0);
 }
 
+/*
+\brief Function for falling animation
+*/
 void FallingCircle::advance(int phase)
 {
      if(phase)
@@ -151,11 +165,14 @@ void FallingCircle::advance(int phase)
      }
 }
 
-void FallingCircle::setYspeed(int value)
+void FallingCircle::setYspeed(int value) //speed setter
 {
     yspeed = value;
 }
 
+/*
+\brief Generating box
+*/
 Box::Box(): QGraphicsRectItem(nullptr)
 {
     QColor color1 = QColor(165, 100, 0);
@@ -167,7 +184,11 @@ Box::Box(): QGraphicsRectItem(nullptr)
     btn->setGeometry(300, 475, 50, 50);
 }
 
+/*
+\brief Slot if butto Add balls is clicked
 
+If button is clicked frames and box are arriving
+*/
 void Widget::on_pushButton_clicked()
 {
    N = QInputDialog::getInt(this, "Adding balls", "Enter number of balls");
@@ -183,13 +204,15 @@ void Widget::on_pushButton_clicked()
 }
 
 
-int Widget::getN() const
+int Widget::getN() const //N getter
 {
     return N;
 }
 
 
-
+/*
+\brief If button End is clicked graphic arrives
+*/
 void Widget::on_pushButton_2_clicked()
 {
     delete current;
